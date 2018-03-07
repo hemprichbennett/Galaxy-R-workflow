@@ -1,0 +1,70 @@
+#Before running open the programme macqiime with the commander ‘macqiime’ (I tried having the script automatically load macqiime but that somehow confuses macqiime. So tough, you have to do that part yourself), then change to the directory where your sorted galaxy files are
+
+#This generates OTUs with the given parameters
+mkdir 80
+mkdir 81
+mkdir 82
+mkdir 83
+mkdir 84
+mkdir 85
+mkdir 86
+mkdir 87
+mkdir 88
+mkdir 89
+mkdir 90
+mkdir 91
+mkdir 92
+mkdir 93
+mkdir 94
+mkdir 95
+mkdir 96
+mkdir 97
+mkdir 98
+mkdir 99
+
+pick_otus.py -i all_post_QC.txt -o 80 -s 0.80
+pick_otus.py -i all_post_QC.txt -o 81 -s 0.81
+pick_otus.py -i all_post_QC.txt -o 82 -s 0.82
+pick_otus.py -i all_post_QC.txt -o 83 -s 0.83
+pick_otus.py -i all_post_QC.txt -o 84 -s 0.84
+pick_otus.py -i all_post_QC.txt -o 85 -s 0.85
+pick_otus.py -i all_post_QC.txt -o 86 -s 0.86
+pick_otus.py -i all_post_QC.txt -o 87 -s 0.87
+pick_otus.py -i all_post_QC.txt -o 88 -s 0.88
+pick_otus.py -i all_post_QC.txt -o 89 -s 0.89
+pick_otus.py -i all_post_QC.txt -o 90 -s 0.90
+pick_otus.py -i all_post_QC.txt -o 91 -s 0.91
+pick_otus.py -i all_post_QC.txt -o 92 -s 0.92
+pick_otus.py -i all_post_QC.txt -o 93 -s 0.93
+pick_otus.py -i all_post_QC.txt -o 94 -s 0.94
+pick_otus.py -i all_post_QC.txt -o 95 -s 0.95
+pick_otus.py -i all_post_QC.txt -o 96 -s 0.96
+pick_otus.py -i all_post_QC.txt -o 97 -s 0.97
+pick_otus.py -i all_post_QC.txt -o 98 -s 0.98
+pick_otus.py -i all_post_QC.txt -o 99 -s 0.99
+
+#This copies the all_post_QC.txt file into each of the new directories
+echo 8* | xargs -n 1 cp all_post_QC.txt
+echo 9* | xargs -n 1 cp all_post_QC.txt
+
+#This uses the most abundant sequence of each haplotype as the representative sequence for the whole haplotype
+pick_rep_set.py -i 80/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 80/reps_80.fasta
+pick_rep_set.py -i 81/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 81/reps_81.fasta
+pick_rep_set.py -i 82/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 82/reps_82.fasta
+pick_rep_set.py -i 83/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 83/reps_83.fasta
+pick_rep_set.py -i 84/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 84/reps_84.fasta
+pick_rep_set.py -i 85/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 85/reps_85.fasta
+pick_rep_set.py -i 86/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 86/reps_86.fasta
+pick_rep_set.py -i 87/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 87/reps_87.fasta
+pick_rep_set.py -i 88/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 88/reps_88.fasta
+pick_rep_set.py -i 89/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 89/reps_89.fasta
+pick_rep_set.py -i 90/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 90/reps_90.fasta
+pick_rep_set.py -i 91/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 91/reps_91.fasta
+pick_rep_set.py -i 92/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 92/reps_92.fasta
+pick_rep_set.py -i 93/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 93/reps_93.fasta
+pick_rep_set.py -i 94/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 94/reps_94.fasta
+pick_rep_set.py -i 95/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 95/reps_95.fasta
+pick_rep_set.py -i 96/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 96/reps_96.fasta
+pick_rep_set.py -i 97/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 97/reps_97.fasta
+pick_rep_set.py -i 98/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 98/reps_98.fasta
+pick_rep_set.py -i 99/all_post_QC_otus.txt -f all_post_QC.txt -m most_abundant -o 99/reps_99.fasta

@@ -1,0 +1,20 @@
+#Script by Dave Bennett davidrbennett88@gmail.com
+#This script takes the output from galaxy, gives every SEQUENCE the name of the file that it resides within at the beginning of execution of the script, combines all of the files together to make one .txt file, and then for QC removes all of the haplotypes with a given number of copies (default is 1).
+#For this script to run either paste it line by line into the terminal, or copy and paste it into the directory your desired files reside in them, then run the script. The latter gives you a record of what you did… As always, backup your files first.
+
+
+#This creates a file called files.names that contains the names of all of the files with a fasta extension within the directory
+ls *fasta > files.names
+
+#This line removes all the ‘.fasta’ values from the file.names file
+perl -pi -e "s/.fasta//g" files.names
+
+#This finds all of the ‘>’ characters and adds the names from the files.names file
+while read l; do perl -pi -e "s/>/>"$l"_/g" "$l".fasta;done < files.names
+
+#This concatenates all of the files into the file ‘all_pre_QC.txt’
+for f in *.fasta; do (cat "${f}"; echo) >> all_pre_QC.txt; done
+
+#This by default removes all sequences with only 1 copy.
+#if you want to remove a different value you must change it from “-1$” to “-[x-y]$]” with x and y being the range of numbers you wish to delete. This is because it is searching for a single value to delete. If you change it from ‘-1$’ to ‘-2$’ it will delete all of the haplotypes with only two sequences, but IGNORE all of the haplotypes with only one. As you presumably want it to delete haplotypes with 2 or less sequences, you need to specify that it deletes all haplotypes with between 1 and 2 sequences present. *Phew*
+sed '/-1$/{N;d;}' all_pre_QC.txt > all_post_QC.txt

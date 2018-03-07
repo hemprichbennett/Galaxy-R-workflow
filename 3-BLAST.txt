@@ -1,0 +1,14 @@
+#Script by David Bennett, davidrbennett88@gmail.com This BLASTs each of the below fasta files from QIIME against seq
+#For this script to work it assumes that the database to be blasted against is in the directory you're currently working in. I don't know why it doesn't work if the database
+#is in a different directory, but it doesn't. So beware. (Knowledge won from hours of anguish)
+
+blastall -p blastn -d seq -i OTU_90/reps_90.fasta -o OTU_90/reps_90_BLAST.txt
+blastall -p blastn -d seq -i OTU_91/reps_91.fasta -o OTU_91/reps_91_BLAST.txt
+blastall -p blastn -d seq -i OTU_92/reps_92.fasta -o OTU_92/reps_92_BLAST.txt
+blastall -p blastn -d seq -i OTU_93/reps_93.fasta -o OTU_93/reps_93_BLAST.txt
+blastall -p blastn -d seq -i OTU_94/reps_94.fasta -o OTU_94/reps_94_BLAST.txt
+blastall -p blastn -d seq -i OTU_95/reps_95.fasta -o OTU_95/reps_95_BLAST.txt
+blastall -p blastn -d seq -i OTU_96/reps_96.fasta -o OTU_96/reps_96_BLAST.txt
+blastall -p blastn -d seq -i OTU_97/reps_97.fasta -o OTU_97/reps_97_BLAST.txt
+blastall -p blastn -d seq -i OTU_98/reps_98.fasta -o OTU_98/reps_98_BLAST.txt
+blastall -p blastn -d seq -i OTU_99/reps_99.fasta -o OTU_99/reps_99_BLAST.txt

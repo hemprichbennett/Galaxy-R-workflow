@@ -1,0 +1,2 @@
+#This checks the sequences input against the library 'seq'. MAKE SURE YOU CHOSE YOUR INPUT FILE and directory, you might not want the 91 cutoff. For this to work you'll need to have mothur installed
+mothur "#chimera.uchime(fasta=OTU_91/reps_91.fasta, reference=seq.fasta)"

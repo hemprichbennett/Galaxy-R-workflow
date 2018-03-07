@@ -1,0 +1,50 @@
+Helpfile written by Dave Bennett (david.bennett@qmul.ac.uk)
+
+All of these scripts should be able to be run in sequence with no need to modify the files manually at any point. Simply navigate to the folder which contains all of your .fasta files from galaxy using the command ‘cd’, then begin. As always, back up your files before you do anything to them!
+It can be helpful to move all of these scripts into the directory which you’re doing your analysis in, so that you have a record of precisely what you did to your data. This is especially important if you modify any of the scripts.
+
+If you’re going to run the BLAST step, make sure that the files named ‘seq’ are all copied into your directory with your .fasta files. After the BLAST script finishes, open your BLAST files in MEGAN and decide which clustering parameters look best to you.
+
+Scripts 2 and 3 assume by default that it’s the first time that you’ve created OTUs for this experiment and so are keen to investigate the use of creating OTUs at each clustering parameter between 90%-99% similarity. If this is an experiment where you’ve already chosen the parameters that are most appropriate to you then this will be redundant and simply use more computing time than is needed, so you can put # in front of the rows of script 2 that aren’t needed (i.e. if you only want to generate OTUs at 98%, delete all rows containing code that looks like its generating/blasting OTUs at 90-97% and 99%). In the terminal, as in R, any lines beginning with # are ignored. If you already know which clustering parameters you want to use, you can skip script 3 as this is the most time-consuming step and is only needed for verification of your clustering parameters in the programme MEGAN.
+
+
+	1-Initial_post_galaxy_edit_of_files.txt
+	This script takes each of your .fasta files and imprints their name on each sequence, before combining all of these files into one, then running some basic quality-control on them.
+This relies on all of your files having useful names, as these will become the column headers for each of your samples at the end of your pipeline. If you have not done so already, rename them. I have a script in the shared folder encasing this one (galaxy output renamer) which can do this for you, it has it’s own separate helpfile.
+To run this script, make sure you’re the directory containing each of your files using the command ’cd’, then type in or drag in the path to this script.
+1) The script creates a file called files.names which contains the names of each .fasta file within the directory
+2) The script then removes the characters ‘.fasta’ from each line in the file files.names
+3) The script goes through each of your .fasta files, editing them to give them the appropriate filename from the file files.names
+4) The script concatenates each of the .fasta files into a single file, named all_pre_QC.txt
+5) The script creates a file containing each sequence from all_pre_QC.txt that has a copy number higher than 1. This file is called all_post_QC.txt and is the one used for each next step
+
+	2-Multiple_OTUs.txt
+	This script takes the main output file from your previous step, then uses it to create files where each sequence has been assigned to an OTU.
+Before running this script you must open the programme macqiime, using the command ‘macqiime’. Then type in or drag in the path to this script. Press enter to run the script, then remember to type ‘exit’ to quit macqiime when you’re done
+1) The script makes each of the directories that your output will go in
+2) The script uses the pick.otus.py command to create the all_post_QC_otus.txt files, which contain the name of each OTU, plus the sample(s) that each OTU was found within.
+3) The script copies the file all_post_QC.txt into each OTU folder, ready for step 4
+4) A .fasta file is generated for each OTU clustering parameter, giving the name of each OTU, plus the most common sequence that was found for each OTU.
+
+	3-BLAST.txt
+	This script BLASTs each of your .fasta files generated in the previous step, checking them against the local database ‘seq’.
+This script should be very simple to execute, simply ensure you’re still in the right directory, then type in/drag in the path to the script.
+1) The only step in this script is BLASTing each .fasta file made by the previous script against the database ‘seq’.
+
+#### At this point when you get your BLAST output you’ll want to check your files in MEGAN, to see which OTU clustering parameters you like. That can be typed up in a different guide. The next two steps assume you’ve found a clustering parameter that you like.
+
+	4-chimera_check.txt
+	This isn’t actually a script, I never bothered writing one as it’s only ever one command, and you’ll only need it once. It uses the programme mothur to check for chimeras in your output .fasta file, by comparing it to the database ‘seq’.
+Initiate the programme ‘mothur’ by typing mothur into the terminal. Then copy and paste in the command, changing the path to the .fasta file you deem appropriate. You will then get an output which contains no chimeras.
+
+	5-MakeQIIMEOTUtable.pl
+	This script takes your all_post_QC_otus file from step 2 and makes an OTu table out of it
+Call this script up by the command perl, then type/drag in the name of the script, then give it the name of the otus file you want to use. E.g:
+
+perl 5-MakeQIIMEOTUtable.pl ./OTU_97/all_post_QC_otus.txt
+
+
+
+
+
+
